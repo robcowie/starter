@@ -12,6 +12,7 @@
 
     brew_packages:
       - git
+      - hub
       - zsh
       #- vim
       - tmux
