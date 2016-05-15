@@ -1,29 +1,34 @@
 ---
-# Configure your freshly installed software
-- hosts: all
-  roles:
-  - role: osxc.repository
-    clone_url: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: /Users/{{ ansible_user_id }}/.oh-my-zsh
-  - role: osxc.repository
-    clone_url: https://github.com/square/maximum-awesome.git
-    dest: /Users/{{ ansible_user_id }}/.vim
-    links:
-    - src: vimrc
-      dest: /Users/{{ ansible_user_id }}/.vimrc
-    - src: vimrc.bundles
-      dest: /Users/{{ ansible_user_id }}/.vimrc.bundles
-    - src: tmux.conf
-      dest: /Users/{{ ansible_user_id }}/.tmux.conf
-  - role: osxc.repository
-    clone_url: https://github.com/gmarik/vundle.git
-    dest: /Users/{{ ansible_user_id }}/.vim/bundle/vundle
-  post_tasks:
-  - copy: src=dotfiles/zshrc dest=/Users/{{ ansible_user_id }}/.zshrc backup=yes
-  - copy: src=dotfiles/vimrc.local dest=/Users/{{ ansible_user_id }}/.vimrc.local backup=yes
-  - copy: src=dotfiles/vimrc.bundles.local dest=/Users/{{ ansible_user_id }}/.vimrc.bundles.local backup=yes
-  - copy: src=dotfiles/tmux.conf.local dest=/Users/{{ ansible_user_id }}/.tmux.conf.local backup=yes
+# Custom config 
 
 - hosts: all
-  roles:
-  - osxc.common-env
+  tasks:
+    - name: Install mjolnir config
+      copy: src=dotfiles/mjolnir/ dest=/Users/{{ ansible_user_id }}/.mjolnir/
+
+    - name: Install git config
+      copy: src=dotfiles/git/gitconfig dest=/Users/{{ ansible_user_id }}/.gitconfig
+
+    - name: Install git ignore
+      copy: src=dotfiles/git/gitignore_global dest=/Users/{{ ansible_user_id }}/.gitignore_global
+
+      #- name: Install vimrc
+      #copy: src=dotfiles/vimrc dest=/Users/{{ ansible_user_id }}/.vimrc
+
+    - name: Ensure luarocks config dir
+      file: path=/Users/{{ ansible_user_id }}/.luarocks/ state=directory
+
+    - name: Configure luarocks for mjolnir
+      copy: content='rocks_servers = { "http://rocks.moonscript.org" }' dest=/Users/{{ ansible_user_id }}/.luarocks/config.lua
+
+    - name: Install mjolnir lua packages
+      command: luarocks install {{ item }}
+      with_items:
+          - "mjolnir.hotkey"
+          - "mjolnir.application"
+          - "mjolnir.alert"
+          - "mjolnir.sd.grid"
+          - "mjolnir._asm.ui.notification"
+
+    - name: Setup work project directory
+      file: path=/Users/{{ ansible_user_id }}/projects state=directory

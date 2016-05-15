@@ -1,19 +1,45 @@
 ---
 # Here we describe every software we may want to install
+# TODO: Move mjolnir to a role (with lua and lou
+
 - hosts: all
   roles:
+  - role: robcowie.vim
+  - role: williamyeh.oracle-java
   - role: osxc.packages
     brew_taps:
-    - caskroom/fonts
+      - caskroom/fonts
+
     brew_packages:
-    - git
-    - zsh
-    - vim
-    - the_silver_searcher
-    - ctags
-    - reattach-to-user-namespace
-    - tmux
+      - git
+      - zsh
+      #- vim
+      - tmux
+      - awscli
+      - direnv
+      - fasd
+      - lua
+      - pgcli
+      - pv
+      - task
+
     cask_packages:
-    - font-inconsolata-for-powerline
-    - iterm2
-    - macvim
+      - iterm2
+      - bittorrent-sync
+      - slack
+      - vlc
+      - sequel-pro
+      - caffeine
+      - flux
+      - hipchat
+      #- logitech-control-center
+      - logitech-options
+      - mjolnir
+      - trailer
+      - alfred
+      - fantastical
+      - telegram
+      - viscosity
+      - font-source-code-pro
+      - dropbox
+      - google-cloud-sdk

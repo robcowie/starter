@@ -1,0 +1,19 @@
+---
+galaxy_info:
+    author: Rob Cowie
+    description: Install Pathogen, Solarized, Nerdtree and AutoComplPop for Vim. Copy a .vimrc
+    license: MIT
+    min_ansible_version: 1.7
+    platforms:
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+    - names: Mac OS
+      versions:
+      - X
+    categories:
+    - development
+    - system

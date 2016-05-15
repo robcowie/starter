@@ -1,0 +1,70 @@
+[user]
+    name  = Rob Cowie
+    email = rob_cowie@mac.com
+
+[core]
+    excludesfile = ~/.gitignore_global
+    quotepath = false
+    editor = vim
+
+[color]
+    ui = auto
+
+[alias]
+    st           = status
+    ci           = commit
+    br           = branch
+    co           = checkout
+    df           = icdiff
+    pu           = push --follow-tags
+    lol          = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    log-timeline = log --format='%h %an %ar - %s'
+    panic        = !tar cvf ../git_panic.tar .
+    conflicts    = !git ls-files -u | cut -f 2 | sort -u
+    undo         = reset --soft HEAD^
+    tags         = !git for-each-ref --sort=-taggerdate --format '%(refname:short) %(taggerdate:relative)' refs/tags
+    serve        = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+    root         = !git rev-parse --show-toplevel
+    push         = push --follow-tags
+    assume       = update-index --assume-unchanged
+    unassume     = update-index --no-assume-unchanged
+    assumed      = "!git ls-files -v | grep ^h | cut -c 3-"
+    snapshot     = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+    standup      = log --since '1 day ago' --oneline --author "rob_cowie@mac.com"
+    delete-merged-branches = "!f() { git checkout --quiet master && git branch --merged | grep --invert-match '\\*' | xargs -n 1 git branch --delete; git checkout --quiet @{-1}; }; f"
+
+[branch]
+    autosetuprebase = always
+
+[push]
+    default = current
+
+[credential]
+    helper = osxkeychain
+
+[hub]
+    protocol = https
+
+[git-up "fetch"]
+    prune = true
+
+[diff]
+    tool = gitx
+
+[difftool]
+    prompt = false
+
+[difftool "gitx"]
+    cmd = /usr/local/bin/gitx --diff
+
+[merge]
+    tool = gitx
+
+[mergetool "gitx"]
+    cmd = gitx
+
+[mergetool]
+    prompt = false
+
+[rebase]
+    autosquash = true

@@ -1,0 +1,20 @@
+---
+# Configure shell(zsh)
+
+# TODO: Use conditionals to clone repo only if not present
+
+- hosts: all
+  roles:
+    - role: osxc.repository
+      clone_url: https://github.com/sorin-ionescu/prezto.git
+      dest: /Users/{{ ansible_user_id }}/.zprezto
+
+  tasks:
+    - name: Install zshrc config
+      copy: src=dotfiles/zsh/ dest=/Users/{{ ansible_user_id }}/.zprezto/runcoms/
+    - name: Link .zshrc
+      file: src=/Users/{{ ansible_user_id }}/.zprezto/runcoms/zshrc dest=/Users/{{ ansible_user_id }}/.zshrc state=link
+    - name: Link .zprofile
+      file: src=/Users/{{ ansible_user_id }}/.zprezto/runcoms/zprofile dest=/Users/{{ ansible_user_id }}/.zprofile state=link
+    - name: Link .zpreztorc
+      file: src=/Users/{{ ansible_user_id }}/.zprezto/runcoms/zpreztorc dest=/Users/{{ ansible_user_id }}/.zpreztorc state=link
