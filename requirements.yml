@@ -4,4 +4,5 @@
 - src: osxc.homebrew
 - src: osxc.packages
 - src: osxc.repository
-- src: williamyeh.oracle-java 
+- src: williamyeh.oracle-java
+  #- src: robinandeer.miniconda
