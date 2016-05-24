@@ -9,6 +9,7 @@
   - role: osxc.packages
     brew_taps:
       - caskroom/fonts
+      - homebrew/versions
 
     brew_packages:
       - git
@@ -44,3 +45,6 @@
       - font-source-code-pro
       - dropbox
       - google-cloud-sdk
+      #- homebrew/versions/apache-spark141
+      #- apache-spark
+      - safari-technology-preview
